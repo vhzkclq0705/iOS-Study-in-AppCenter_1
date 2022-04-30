@@ -9,9 +9,11 @@ import UIKit
 
 class TasksVC: UIViewController {
 
+    var todoViewModel = TodoViewModel.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        todoViewModel.loadTodos()
     }
 }
 
@@ -19,18 +21,30 @@ extension TasksVC: UICollectionViewDataSource, UICollectionViewDelegate {
     
     // Section Header의 개수
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return todoViewModel.numOfSections
     }
 
     // cell의 개수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        if section == 0 {
+            return todoViewModel.todayTodos.count
+        } else {
+            return todoViewModel.upcomingTodos.count
+        }
     }
     
     // cell이 어떻게 표현될 것인지 나타냄
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TodoListCell", for: indexPath) as? TodoListCell else {
             return UICollectionViewCell() }
+        
+        var todo: Todo
+        if indexPath.section == 0 {
+            todo = todoViewModel.todayTodos[indexPath.item]
+        } else {
+            todo = todoViewModel.upcomingTodos[indexPath.item]
+        }
+        cell.updateUI(todo: todo)
         
         return cell
     }
@@ -40,10 +54,14 @@ extension TasksVC: UICollectionViewDataSource, UICollectionViewDelegate {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionHeaderView", for: indexPath) as? SectionHeaderView else {
-                return UICollectionReusableView() }
+                return UICollectionReusableView()
+            }
             
-            header.headerLabel.text = "Today"
+            guard let section = TodoViewModel.Section(rawValue: indexPath.section) else {
+                return UICollectionReusableView()
+            }
             
+            header.headerLabel.text = section.title
             return header
         default:
             return UICollectionReusableView()
@@ -58,47 +76,4 @@ extension TasksVC: UICollectionViewDelegateFlowLayout {
         let height: CGFloat = 50
         return CGSize(width: width, height: height)
     }
-}
-
-class TodoListCell: UICollectionViewCell {
-    @IBOutlet weak var checkButton: UIButton!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var deleteButton: UIButton!
-    
-    var doneButtonTapHandler: ((Bool) -> Void)?
-    var deleteButtonTapHandler: ((Bool) -> Void)?
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        reset()
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        reset()
-    }
-    
-    func updateUI(todo: Todo) {
-        
-    }
-    
-    private func showStrikeThrough(_ show: Bool) {
-        
-    }
-    
-    func reset() {
-        
-    }
-    
-    @IBAction func checkButtonTapped(_ sender: Any) {
-        
-    }
-    
-    @IBAction func deleteButtomTapped(_ sender: Any) {
-        
-    }
-}
-
-class SectionHeaderView: UICollectionReusableView {
-    @IBOutlet weak var headerLabel: UILabel!
 }

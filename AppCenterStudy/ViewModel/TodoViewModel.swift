@@ -1,32 +1,17 @@
 //
-//  Todo.swift
+//  TodoViewModel.swift
 //  AppCenterStudy
 //
-//  Created by 권오준 on 2022/04/29.
+//  Created by 권오준 on 2022/05/01.
 //
 
 import Foundation
 
-struct Todo: Codable, Equatable {
-    let id: Int
-    var isDone: Bool
-    var detail: String
-    var isToday: Bool
-    
-    mutating func update(isDone: Bool, detail: String, isToday: Bool) {
-        self.isDone = isDone
-        self.detail = detail
-        self.isToday = isToday
-    }
-    
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.id == rhs.id
-    }
-}
-
 class TodoViewModel {
     
     static let shared = TodoViewModel()
+    
+    private init() { }
     
     var lastId: Int = 0
     
@@ -80,14 +65,13 @@ class TodoViewModel {
     }
     
     func saveTodo() {
-        // save to Storage
+        Storage.saveTodo(todo: todos, fileName: "TodoList.json")
     }
     
     func loadTodos() {
-        // load from Storage
+        todos = Storage.loadTodo(fileName: "TodoList.json") ?? []
+        
+        let loadLastId = todos.last?.id ?? 0
+        lastId = loadLastId
     }
-}
-
-public class Storage {
-    
 }

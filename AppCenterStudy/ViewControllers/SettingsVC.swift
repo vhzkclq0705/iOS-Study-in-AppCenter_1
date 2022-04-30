@@ -11,6 +11,6 @@ class SettingsVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // Not Implement yet
     }
 }

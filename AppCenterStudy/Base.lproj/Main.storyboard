@@ -34,41 +34,53 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWY-ob-eN7">
-                                                    <rect key="frame" x="16" y="6" width="54.5" height="38"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="circle.fill" catalog="system">
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
-                                                        <color key="baseForegroundColor" systemColor="systemPinkColor"/>
-                                                    </buttonConfiguration>
-                                                    <connections>
-                                                        <action selector="checkButtonTapped:" destination="vGQ-If-wfz" eventType="touchUpInside" id="9io-5A-ylq"/>
-                                                    </connections>
-                                                </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKF-La-Stv">
-                                                    <rect key="frame" x="79" y="5" width="261" height="40"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKF-La-Stv">
+                                                    <rect key="frame" x="80" y="0.0" width="41.5" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="khw-Dk-0TY"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lv0-NG-P6f">
-                                                    <rect key="frame" x="343.5" y="6" width="54.5" height="38"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lv0-NG-P6f">
+                                                    <rect key="frame" x="344" y="0.0" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="IPH-V0-dQ2"/>
+                                                        <constraint firstAttribute="height" constant="50" id="uBk-V1-GNf"/>
+                                                    </constraints>
                                                     <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="multiply.circle.fill" catalog="system">
-                                                        <preferredSymbolConfiguration key="preferredSymbolConfigurationForImage" configurationType="pointSize" pointSize="20"/>
-                                                    </buttonConfiguration>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" title="Button" image="multiply.circle.fill" catalog="system">
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="deleteButtomTapped:" destination="vGQ-If-wfz" eventType="touchUpInside" id="d0m-CY-at0"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWY-ob-eN7">
+                                                    <rect key="frame" x="20" y="0.0" width="50" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="Jkg-xM-InQ"/>
+                                                        <constraint firstAttribute="height" constant="50" id="fqo-qT-4c3"/>
+                                                    </constraints>
+                                                    <color key="tintColor" systemColor="systemPinkColor"/>
+                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                    <state key="normal" image="circle" catalog="system">
+                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="20"/>
+                                                    </state>
+                                                    <state key="selected" image="checkmark.circle.fill" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="checkButtonTapped:" destination="vGQ-If-wfz" eventType="touchUpInside" id="9io-5A-ylq"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="zWY-ob-eN7" firstAttribute="leading" secondItem="ZfN-jW-qn5" secondAttribute="leading" constant="16" id="D23-tS-3ey"/>
                                                 <constraint firstItem="CKF-La-Stv" firstAttribute="centerY" secondItem="ZfN-jW-qn5" secondAttribute="centerY" id="HWN-Ls-eHe"/>
-                                                <constraint firstItem="CKF-La-Stv" firstAttribute="leading" secondItem="zWY-ob-eN7" secondAttribute="trailing" constant="8.5" id="Zro-cH-UyH"/>
-                                                <constraint firstAttribute="trailing" secondItem="lv0-NG-P6f" secondAttribute="trailing" constant="16" id="imw-05-Fu4"/>
+                                                <constraint firstAttribute="trailing" secondItem="lv0-NG-P6f" secondAttribute="trailing" constant="20" id="imw-05-Fu4"/>
+                                                <constraint firstItem="CKF-La-Stv" firstAttribute="leading" secondItem="zWY-ob-eN7" secondAttribute="trailing" constant="10" id="lMB-Jh-2Zw"/>
                                                 <constraint firstItem="lv0-NG-P6f" firstAttribute="centerY" secondItem="ZfN-jW-qn5" secondAttribute="centerY" id="oPG-PT-w6M"/>
+                                                <constraint firstItem="zWY-ob-eN7" firstAttribute="leading" secondItem="ZfN-jW-qn5" secondAttribute="leading" constant="20" id="scX-LR-Mgl"/>
                                                 <constraint firstItem="zWY-ob-eN7" firstAttribute="centerY" secondItem="ZfN-jW-qn5" secondAttribute="centerY" id="tFf-5W-VxD"/>
                                             </constraints>
                                         </collectionViewCellContentView>
@@ -84,14 +96,18 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lic-je-oTJ">
-                                            <rect key="frame" x="26" y="0.0" width="100" height="50"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lic-je-oTJ">
+                                            <rect key="frame" x="20" y="10" width="374" height="30"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="lic-je-oTJ" secondAttribute="trailing" constant="20" id="9qd-cQ-epe"/>
+                                        <constraint firstItem="lic-je-oTJ" firstAttribute="leading" secondItem="NT3-Bo-aK1" secondAttribute="leading" constant="20" id="Xwg-c5-Gk7"/>
+                                        <constraint firstItem="lic-je-oTJ" firstAttribute="centerY" secondItem="NT3-Bo-aK1" secondAttribute="centerY" id="as9-Y0-y8g"/>
+                                    </constraints>
                                     <connections>
                                         <outlet property="headerLabel" destination="lic-je-oTJ" id="k3g-vx-hIA"/>
                                     </connections>
@@ -213,8 +229,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="checkmark.seal.fill" catalog="system" width="128" height="128"/>
-        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="multiply.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
