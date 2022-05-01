@@ -6,8 +6,7 @@
 - CaseIterable
 - Equatable
 - awakeFromNib()
-- prepareForeReuse()
-- NSAttributedString
+- prepareForReuse()
 - CollectionView Section Header
 - TableView Static Cell
 - NotificationCenter를 통한 키보드 호출 알림
