@@ -9,22 +9,50 @@ import UIKit
 
 class TasksVC: UIViewController {
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var inputTextField: UITextField!
+    @IBOutlet weak var todayButton: UIButton!
+    @IBOutlet weak var inputViewBottomConstraint: NSLayoutConstraint!
     var todoViewModel = TodoViewModel.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        keyboardNofitications()
         todoViewModel.loadTodos()
+    }
+    
+    @IBAction func todayButtonTapped(_ sender: Any) {
+        todayButton.isSelected = !todayButton.isSelected
+    }
+    
+    @IBAction func addButtonTapped(_ sender: Any) {
+        let isToday = todayButton.isSelected
+        guard let detail = inputTextField.text, detail.isEmpty == false else { return }
+        let todo = todoViewModel.createTodo(detail: detail, isToday: isToday)
+        todoViewModel.addTodo(todo)
+        
+        var item: Int {
+            return isToday ? todoViewModel.todayTodos.count : todoViewModel.upcomingTodos.count
+        }
+        let section = isToday ? 0 : 1
+        let indexPath = [IndexPath(item: item - 1, section: section)]
+        collectionView.insertItems(at: indexPath)
+        
+        inputTextField.text = ""
+    }
+    
+    @IBAction func recognizeTapped(_ sender: Any) {
+        inputTextField.resignFirstResponder()
     }
 }
 
 extension TasksVC: UICollectionViewDataSource, UICollectionViewDelegate {
-    
-    // Section Header의 개수
+    // count of Section Headers
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return todoViewModel.numOfSections
     }
 
-    // cell의 개수
+    // count of cells
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
             return todoViewModel.todayTodos.count
@@ -33,7 +61,7 @@ extension TasksVC: UICollectionViewDataSource, UICollectionViewDelegate {
         }
     }
     
-    // cell이 어떻게 표현될 것인지 나타냄
+    // show cells in Section
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TodoListCell", for: indexPath) as? TodoListCell else {
             return UICollectionViewCell() }
@@ -46,10 +74,21 @@ extension TasksVC: UICollectionViewDataSource, UICollectionViewDelegate {
         }
         cell.updateUI(todo: todo)
         
+        cell.doneButtonTapHandler = { isDone in
+            todo.isDone = isDone
+            self.todoViewModel.updateTodo(todo)
+            self.collectionView.reloadItems(at:[IndexPath(item: indexPath.item, section: indexPath.section)])
+        }
+        
+        cell.deleteButtonTapHandler = {
+            self.collectionView.deleteItems(at: [IndexPath(item: indexPath.item, section: indexPath.section)])
+            self.todoViewModel.deleteTodo(todo)
+        }
+        
         return cell
     }
     
-    // Section Header가 어떻게 표현될 것인지 나타냄
+    // show Section Header
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
@@ -70,10 +109,28 @@ extension TasksVC: UICollectionViewDataSource, UICollectionViewDelegate {
 }
 
 extension TasksVC: UICollectionViewDelegateFlowLayout {
-    // cell의 size를 나타냄
+    // resize cell
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = collectionView.bounds.width
         let height: CGFloat = 50
         return CGSize(width: width, height: height)
+    }
+}
+
+extension TasksVC {
+    // adjust inputView's height
+    private func keyboardNofitications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustInputViewHeigt), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(adjustInputViewHeigt), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func adjustInputViewHeigt(noti: Notification) {
+        guard let keyboardFrame = (noti.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        
+        if noti.name == UIResponder.keyboardWillShowNotification {
+            inputViewBottomConstraint.constant = keyboardFrame.height - view.safeAreaInsets.bottom
+        } else {
+            inputViewBottomConstraint.constant = 0
+        }
     }
 }

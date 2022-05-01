@@ -35,7 +35,7 @@ class Storage {
         let jsonDecoder = JSONDecoder()
         
         do {
-            guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil}
+            guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
             let fileURL = documentDirectoryUrl.appendingPathComponent(fileName)
             
             let jsonData = try Data(contentsOf: fileURL, options: .mappedIfSafe)

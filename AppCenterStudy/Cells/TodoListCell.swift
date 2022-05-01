@@ -31,23 +31,30 @@ class TodoListCell: UICollectionViewCell {
         descriptionLabel.text = todo.detail
         descriptionLabel.alpha = todo.isDone ? 0.2 : 1
         deleteButton.isHidden = !todo.isDone
-        showStrikeThrough(todo.isDone)
+        showStrikeThrough(todo.isDone, detail: descriptionLabel.text!)
     }
     
-    private func showStrikeThrough(_ show: Bool) {
-        
+    private func showStrikeThrough(_ show: Bool, detail: String) {
+        let attributedText: NSAttributedString
+        if show {
+            attributedText = NSAttributedString(string: detail,
+                attributes: [.strikethroughStyle: NSUnderlineStyle.single.rawValue])
+        } else {
+            attributedText = NSAttributedString(string: detail)
+        }
+        descriptionLabel.attributedText = attributedText
     }
     
     func reset() {
         descriptionLabel.alpha = 1
         deleteButton.isHidden = true
-        showStrikeThrough(false)
+        showStrikeThrough(false, detail: "")
     }
     
     @IBAction func checkButtonTapped(_ sender: Any) {
         checkButton.isSelected = !checkButton.isSelected
         let isDone = checkButton.isSelected
-        showStrikeThrough(isDone)
+        showStrikeThrough(isDone, detail: descriptionLabel.text!)
         descriptionLabel.alpha = isDone ? 0.2 : 1
         deleteButton.isHidden = !isDone
         
